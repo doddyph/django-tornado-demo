@@ -1,0 +1,5 @@
+.idea/
+pyvenv
+db.sqlite3
+*.pyc
+*.txt~

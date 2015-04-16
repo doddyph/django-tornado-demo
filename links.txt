@@ -1,0 +1,8 @@
+http://www.effectivedjango.com/tutorial/authzn.html
+http://www.tangowithdjango.com/book/chapters/login.html
+http://tornado.readthedocs.org/en/latest/wsgi.html
+https://github.com/bdarnell/django-tornado-demo/blob/master/testsite/tornado_main.py
+https://github.com/tamasgal/django-tornado/blob/master/run_tornado.py
+http://sysmagazine.com/posts/160123/
+https://gist.github.com/bdarnell/654157
+https://docs.djangoproject.com/en/1.7/topics/cache/
