@@ -1,3 +1,5 @@
+from django.contrib.auth import login, authenticate
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from .forms import RegistrationForm
@@ -25,3 +27,24 @@ def register(request):
         'accounts/reg.html',
         {'reg_form': reg_form, 'registered': registered},
         context)
+
+
+def user_login(request):
+    context = RequestContext(request)
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/demo/')
+            else:
+                return HttpResponse("Your account is disabled.")
+        else:
+            print 'Invalid login, details: {0}, {1}'.format(username, password)
+            return HttpResponse("invalid login details supplied.")
+    else:
+        return render_to_response('accounts/login.html', {}, context)

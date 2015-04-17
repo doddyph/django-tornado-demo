@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^$', TemplateView.as_view(template_name='accounts/home.html')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('accounts.urls')),
+    url(r'^demo/', TemplateView.as_view(template_name="demo/websocket.html")),
 )

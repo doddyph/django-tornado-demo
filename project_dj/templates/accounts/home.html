@@ -11,6 +11,7 @@ Home
     <a href="/accounts/register/">Register</a>
     <a href="{% url 'django.contrib.auth.views.login' %}">Login</a>
     {% else %}
+    <a href="/demo/">Demo</a>
     <a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
     {% endif %}
 </div>
