@@ -35,9 +35,9 @@ class WSHandler(WebSocketHandler):
 
     def on_message(self, message):
         # self.user = self.get_django_current_user()
-        print '[WebSocket] Message: {0} from user: {1}'.format(message, self.user)
-        j = json.loads(message)
-        action = j['action']
+        print '[WebSocket] Receive: {0} from user: {1}'.format(message, self.user)
+        j_decoded = json.loads(message)
+        action = j_decoded['action']
 
         if action == 'start':
             self.on_start(self.user)
@@ -46,7 +46,7 @@ class WSHandler(WebSocketHandler):
 
     def send_message(self, message):
         # self.user = self.get_django_current_user()
-        print '[WebSocket] Send message: {1} to user: {0}'.format(self.user, message)
+        print '[WebSocket] Sent: {0} to user: {1}'.format(message, self.user)
         try:
             self.write_message(message)
         except WebSocketClosedError:
@@ -72,7 +72,7 @@ class WSHandler(WebSocketHandler):
             t = subscriptions[str(user)]
             t.remove_subscriber(self)
             count = t.get_subscribers_length()
-            print '[WebSocket] on stop, subscriber count: {}'.format(count)
+            print '[WebSocket] On stop, subscriber count: {}'.format(count)
 
             if count == 0:
                 t.stop_consumer()
@@ -176,7 +176,7 @@ def main():
 
     http_server = HTTPServer(WSApplication())
     http_server.listen(options.wsport, address=options.wshost)
-    print '[WebSocket] Server starting on {0}:{1}/ws'.format(options.wshost, options.wsport)
+    print '[WebSocket] Starting server on {0}:{1}/ws'.format(options.wshost, options.wsport)
     signal.signal(signal.SIGINT, lambda sig, frame: shutdown(http_server))
     IOLoop.instance().start()
 

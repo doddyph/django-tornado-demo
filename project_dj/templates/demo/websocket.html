@@ -30,15 +30,15 @@
                 ws = new WebSocket("ws://" + host + ":" + port + uri);
 
                 ws.onopen = function(event) {
-                    log("Connection opened");
+                    log("Recv: Connection opened");
                 };
 
                 ws.onmessage = function(event) {
-                    log("Message: " + event.data);
+                    log("Recv: " + event.data);
                 };
 
                 ws.onclose = function(event) {
-                    log("Connection closed");
+                    log("Recv: Connection closed");
                 };
             });
 
@@ -48,13 +48,13 @@
 
             $("#start").click(function(event) {
                 var msg = JSON.stringify({action: 'start', user: '{{ user.username }}'});
-                log("Sent message: " + msg)
+                log("Sent: " + msg)
                 ws.send(msg);
             });
 
             $("#stop").click(function(event) {
                 var msg = JSON.stringify({action: 'stop', user: '{{ user.username }}'});
-                log("Sent message: " + msg)
+                log("Sent: " + msg)
                 ws.send(msg);
             });
         });

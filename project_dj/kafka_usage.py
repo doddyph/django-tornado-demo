@@ -1,4 +1,5 @@
 from functools import partial
+import json
 import random
 from threading import Thread
 from kafka import KafkaClient, SimpleConsumer, SimpleProducer
@@ -28,11 +29,12 @@ class Consumer(Thread):
             if not self.consumer_paused:
                 for message in self.consumer.get_messages(block=False):
                     offset = message.offset
-                    msg_value = message.message.value
-                    print '[KafkaConsumer] Offset: {0}, message: {1}'.format(offset, msg_value)
+                    value = message.message.value
+                    j_encoded = json.dumps({'offset': offset, 'message': value})
+                    print '[KafkaConsumer] {}'.format(j_encoded)
 
                     for subscriber in self.consumer_subscribers:
-                        IOLoop.instance().add_callback(partial(subscriber.send_message, msg_value))
+                        IOLoop.instance().add_callback(partial(subscriber.send_message, j_encoded))
             time.sleep(1)
 
     def pause_consumer(self, paused):
